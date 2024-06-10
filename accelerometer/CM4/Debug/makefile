@@ -61,8 +61,8 @@ all: main-build
 main-build: accelerometer_CM4.elf secondary-outputs
 
 # Tool invocations
-accelerometer_CM4.elf accelerometer_CM4.map: $(OBJS) $(USER_OBJS) C:\Users\minso\STM32CubeIDE\pre_MASCC\accelerometer\CM4\STM32H755ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "accelerometer_CM4.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\minso\STM32CubeIDE\pre_MASCC\accelerometer\CM4\STM32H755ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="accelerometer_CM4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+accelerometer_CM4.elf accelerometer_CM4.map: $(OBJS) $(USER_OBJS) C:\Users\joshu\STM32CubeIDE\workspace_1.15.1\accelerometer\CM4\STM32H755ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "accelerometer_CM4.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\joshu\STM32CubeIDE\workspace_1.15.1\accelerometer\CM4\STM32H755ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="accelerometer_CM4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

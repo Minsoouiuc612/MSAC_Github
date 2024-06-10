@@ -1,5 +1,5 @@
 Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_flash.o: \
- C:/Users/minso/STM32CubeIDE/pre_MASCC/accelerometer/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c \
+ C:/Users/joshu/STM32CubeIDE/workspace_1.15.1/accelerometer/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../Core/Inc/stm32h7xx_hal_conf.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h \
