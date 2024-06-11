@@ -164,13 +164,24 @@ HSEM notification */
 	cntl1 = 0;
 	HAL_I2C_Mem_Write(&hi2c1, (0b00011111 << 1) + 0, 0x1B, 1, &cntl1, 1, 100);
 
+	// %%%%%%%%%% Setting up ODCNTL register %%%%%%%%%%
+	uint8_t odcntl = 0b00000110;
+	HAL_I2C_Mem_Write(&hi2c1, (0b00011111 << 1) + 0, 0x21, 1, &odcntl, 1, 100);
+
+	odcntl = odcntl | 0b00001101;
+	HAL_I2C_Mem_Write(&hi2c1, (0b00011111 << 1) + 0, 0x21, 1, &odcntl, 1, 100);
+
+	HAL_I2C_Mem_Read(&hi2c1, (0b00011111 << 1) + 1, 0x21, 1, &odcntl, 1, 100);
+	printf("odcntl after settings: %d \n", odcntl);
+	// %%%%%%%%%% Setting up ODCNTL register %%%%%%%%%%
+
 	// Read for debugging purposes
 	HAL_I2C_Mem_Read(&hi2c1, (0b00011111 << 1) + 1, 0x1B, 1, &cntl1, 1, 100);
 	printf("cntl1 after reset: %d \n", cntl1);
 
 	// Then, set everything we want besides most significant bit
-	//	uint8_t new_cntl1 = 0b01010000 | cntl1; // +- 32 g range
-	uint8_t new_cntl1 = 0b01001000 | cntl1; // +- 16 g range
+	uint8_t new_cntl1 = 0b01010000 | cntl1; // +- 32 g range
+	//	uint8_t new_cntl1 = 0b01001000 | cntl1; // +- 16 g range
 	HAL_I2C_Mem_Write(&hi2c1, (0b00011111 << 1) + 0, 0x1B, 1, &new_cntl1, 1, 100);
 
 	// Read for debugging purposes
@@ -205,18 +216,20 @@ HSEM notification */
 		HAL_I2C_Mem_Read(&hi2c1, (0b00011111 << 1) + 1, 0x08, 1, data, 6, 100);
 
 		x_acc = (data[1] << 8) + data[0];
-		x_accel_converted = z_acc * ((float)(15.99951 / 32767.0));
+		x_accel_converted = x_acc * ((float)(31.99902 / 32767.0));
+		//		x_accel_converted = x_acc * ((float)(15.99951 / 32767.0));
 
 		y_acc = (data[3] << 8) + data[2];
-		y_accel_converted = z_acc * ((float)(15.99951 / 32767.0));
+		y_accel_converted = y_acc * ((float)(31.99902 / 32767.0));
+		//		y_accel_converted = y_acc * ((float)(15.99951 / 32767.0));
 
 		z_acc = (data[5] << 8) + data[4];
-//		z_accel_converted = z_acc * ((float)(31.99902 / 32767.0));
-		z_accel_converted = z_acc * ((float)(15.99951 / 32767.0));
+		z_accel_converted = z_acc * ((float)(31.99902 / 32767.0));
+		//		z_accel_converted = z_acc * ((float)(15.99951 / 32767.0));
 
 		printf("X Accel: %f, Y Accel: %f, Z Accel: %f \n", x_accel_converted, y_accel_converted, z_accel_converted);
-//		printf("Z Accel float: %0.6f, Z Accel int: %d, MSB: %d, LSM: %d \n", z_accel_converted, z_acc, data[1], data[0]);
-		HAL_Delay(500);
+		//		printf("Z Accel float: %0.6f, Z Accel int: %d, MSB: %d, LSM: %d \n", z_accel_converted, z_acc, data[1], data[0]);
+		HAL_Delay(1);
 	}
 	/* USER CODE END 3 */
 }
